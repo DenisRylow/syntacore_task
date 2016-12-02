@@ -1,0 +1,1 @@
+numberOfSumVectorsInOneThread is equal or less than zero or exceed one third of the number of generating vectors.
