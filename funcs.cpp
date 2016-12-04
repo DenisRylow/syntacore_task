@@ -1,25 +1,25 @@
 /*
  * funcs.cpp
  *
- *  Created on: 25 нояб. 2016 г.
+ *  Created on: 25 РЅРѕСЏР±. 2016 Рі.
  *      Author: Dexiz
  */
 #include"funcs.hpp"
 
 void Task::setInputOutputFiles(std::string inputFile, std::string outputFile)
 {
-	input.open(inputFile, std::ios::in);  // Входной файл.
-	output.open(outputFile, std::ios::out | std::ios::trunc); // Выходной файл.
+	input.open(inputFile, std::ios::in);  // Р’С…РѕРґРЅРѕР№ С„Р°Р№Р».
+	output.open(outputFile, std::ios::out | std::ios::trunc); // Р’С‹С…РѕРґРЅРѕР№ С„Р°Р№Р».
 
 	if (input.fail() || output.fail())
 	{
-		// Ошибка открытия файла.
+		// РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°.
 		throw std::runtime_error("Could not open one or both files.");
 	}
 	else
 		if (input.peek() == std::fstream::traits_type::eof())
 		{
-			// Файл пустой.
+			// Р¤Р°Р№Р» РїСѓСЃС‚РѕР№.
 			throw std::runtime_error("Empty input file.");
 		};
 }
@@ -54,10 +54,10 @@ int Task::removeDelimiterDetermineVectorSize(char CstyleString[])
 {
 	int size = strlen(CstyleString);
 
-	if (CstyleString[size - 1] == '\r') // Windows-style строки заканчиваются на \r\n, \r необходимо убрать.
+	if (CstyleString[size - 1] == '\r') // Windows-style СЃС‚СЂРѕРєРё Р·Р°РєР°РЅС‡РёРІР°СЋС‚СЃСЏ РЅР° \r\n, \r РЅРµРѕР±С…РѕРґРёРјРѕ СѓР±СЂР°С‚СЊ.
 	{
 		unixStyleLine = false;
-		CstyleString[size - 1] = '\0'; // Убираем '\r'.
+		CstyleString[size - 1] = '\0'; // РЈР±РёСЂР°РµРј '\r'.
 		--size;
 	};
 
@@ -104,7 +104,7 @@ void Task::addVectorToVectors(std::string buffer)
 		bool b = (i + 1) % std::numeric_limits<unsigned int>::digits;
 		if (!b)
 		{
-			// Текущая ячейка памяти заполнена, необходимо перейти на следующую.
+			// РўРµРєСѓС‰Р°СЏ СЏС‡РµР№РєР° РїР°РјСЏС‚Рё Р·Р°РїРѕР»РЅРµРЅР°, РЅРµРѕР±С…РѕРґРёРјРѕ РїРµСЂРµР№С‚Рё РЅР° СЃР»РµРґСѓСЋС‰СѓСЋ.
 			++j;
 			*(pointer + j) = 0;
 		};
@@ -146,7 +146,7 @@ void Task::loadAllVectors()
 
 		input.getline(buffer,BUFFER_SIZE);
 
-		vectorSize = removeDelimiterDetermineVectorSize(buffer); // Число N.
+		vectorSize = removeDelimiterDetermineVectorSize(buffer); // Р§РёСЃР»Рѕ N.
 		numberOfInts = computeNumberOfInts(vectorSize);
 
 		vectors.reserve(16);
@@ -165,7 +165,7 @@ void Task::loadAllVectors()
 
 			if (currentVectorSize != vectorSize)
 			{
-				// Все вектора должны быть одинакового размера
+				// Р’СЃРµ РІРµРєС‚РѕСЂР° РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РѕРґРёРЅР°РєРѕРІРѕРіРѕ СЂР°Р·РјРµСЂР°
 				terminate = true;
 				//throw std::runtime_error("Vectors are of different sizes.");
 			}
@@ -178,7 +178,7 @@ void Task::loadAllVectors()
 
 		}
 
-		sem.wait(); // Ожидание окончания работы всех std::thread.
+		sem.wait(); // РћР¶РёРґР°РЅРёРµ РѕРєРѕРЅС‡Р°РЅРёСЏ СЂР°Р±РѕС‚С‹ РІСЃРµС… std::thread.
 		vectorsLoaded = true;
 	};
 }
@@ -195,12 +195,12 @@ void Task::computeSpectrumInParallel(unsigned int numberOfSumVectorsInOneThread)
 			throw std::runtime_error("numberOfSumVectorsInOneThread is equal or less than zero or exceeds 2^{the number of generating vectors}.");
 		};
 
-		BetaCoef betaCoeficients = 0; // betaCoeficients - массив из N коэффициентов бета, на которые умнажаются порождающие вектора.
+		BetaCoef betaCoeficients = 0; // betaCoeficients - РјР°СЃСЃРёРІ РёР· N РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ Р±РµС‚Р°, РЅР° РєРѕС‚РѕСЂС‹Рµ СѓРјРЅР°Р¶Р°СЋС‚СЃСЏ РїРѕСЂРѕР¶РґР°СЋС‰РёРµ РІРµРєС‚РѕСЂР°.
 
 		while(betaCoeficients + numberOfSumVectorsInOneThread < limit)
 		{
 			sem.signalWorkStarted();
-			// В каждом потоке обрабатывается numberOfSumVectorsInOneThread векторов - линейных сумм.
+			// Р’ РєР°Р¶РґРѕРј РїРѕС‚РѕРєРµ РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ numberOfSumVectorsInOneThread РІРµРєС‚РѕСЂРѕРІ - Р»РёРЅРµР№РЅС‹С… СЃСѓРјРј.
 			std::thread thr(&Task::computeSpectrum, this, betaCoeficients, numberOfSumVectorsInOneThread);
 			thr.detach();
 			//thr.join();
@@ -208,7 +208,7 @@ void Task::computeSpectrumInParallel(unsigned int numberOfSumVectorsInOneThread)
 			betaCoeficients = betaCoeficients + numberOfSumVectorsInOneThread;
 		};
 
-		// В последнем потоке может обрабатываться меньшее количество сумм векторов (не хватило).
+		// Р’ РїРѕСЃР»РµРґРЅРµРј РїРѕС‚РѕРєРµ РјРѕР¶РµС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊСЃСЏ РјРµРЅСЊС€РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСѓРјРј РІРµРєС‚РѕСЂРѕРІ (РЅРµ С…РІР°С‚РёР»Рѕ).
 		BetaCoef temp = limit - betaCoeficients;
 		unsigned int numberOfVectorsInTheLastThread = temp;
 
@@ -218,7 +218,7 @@ void Task::computeSpectrumInParallel(unsigned int numberOfSumVectorsInOneThread)
 			computeSpectrum(betaCoeficients, numberOfVectorsInTheLastThread);
 		};
 
-		sem.wait(); // Ожидание окончания работы всех std::thread.
+		sem.wait(); // РћР¶РёРґР°РЅРёРµ РѕРєРѕРЅС‡Р°РЅРёСЏ СЂР°Р±РѕС‚С‹ РІСЃРµС… std::thread.
 	};
 
 }
@@ -230,16 +230,16 @@ void Task::computeSpectrum(BetaCoef betaCoef, unsigned int numberOfVectorsInOneT
 
 	for(unsigned int i = 0; i < numberOfVectorsInOneThread; ++i)
 	{
-		// Обнуление вектора, который содержит линейную сумму.
+		// РћР±РЅСѓР»РµРЅРёРµ РІРµРєС‚РѕСЂР°, РєРѕС‚РѕСЂС‹Р№ СЃРѕРґРµСЂР¶РёС‚ Р»РёРЅРµР№РЅСѓСЋ СЃСѓРјРјСѓ.
 		for(int j = 0; j < vectorSize; ++j)
 			p[j] = 0;
 
-		// Обнуление веса вектора p.
+		// РћР±РЅСѓР»РµРЅРёРµ РІРµСЃР° РІРµРєС‚РѕСЂР° p.
 		weight = 0;
 
 		for(unsigned int j = 0; j < vectors.size(); ++j) // vectors.size() = N
 		{
-			if (getBit(betaCoef, j)) // Если бит нулевой, то можно не складывать.
+			if (getBit(betaCoef, j)) // Р•СЃР»Рё Р±РёС‚ РЅСѓР»РµРІРѕР№, С‚Рѕ РјРѕР¶РЅРѕ РЅРµ СЃРєР»Р°РґС‹РІР°С‚СЊ.
 			{
 				for(int k = 0; k < numberOfInts; ++k)
 					p[k] ^= vectors[j][k];
@@ -267,7 +267,7 @@ int Task::computeWeight(unsigned int *pointer)
 
 	while (j < numberOfInts)
 	{
-		sum += __builtin_popcount(pointer[j]); // Функция компилятора GCC.
+		sum += __builtin_popcount(pointer[j]); // Р¤СѓРЅРєС†РёСЏ РєРѕРјРїРёР»СЏС‚РѕСЂР° GCC.
 		++j;
 	}
 

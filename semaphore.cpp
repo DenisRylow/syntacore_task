@@ -1,7 +1,7 @@
-/*
+п»ї/*
  * semaphore.cpp
  *
- *  Created on: 26 нояб. 2016 г.
+ *  Created on: 26 РЅРѕСЏР±. 2016 Рі.
  *      Author: Dexiz
  */
 #include"semaphore.h"
@@ -35,6 +35,6 @@ void Semaphore::wait()
 {
 	std::unique_lock<std::mutex> lk(mut);
 
-	while (count != 0) // защита от ложных пробуждений
-		conVar.wait(lk); // освобождает мьютекс
+	while (count != 0) // Р·Р°С‰РёС‚Р° РѕС‚ Р»РѕР¶РЅС‹С… РїСЂРѕР±СѓР¶РґРµРЅРёР№
+		conVar.wait(lk); // РѕСЃРІРѕР±РѕР¶РґР°РµС‚ РјСЊСЋС‚РµРєСЃ
 }

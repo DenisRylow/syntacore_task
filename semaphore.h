@@ -1,7 +1,7 @@
-/*
+п»ї/*
  * semaphore.h
  *
- *  Created on: 26 нояб. 2016 г.
+ *  Created on: 26 РЅРѕСЏР± 2016 Рі.
  *      Author: Dexiz
  */
 

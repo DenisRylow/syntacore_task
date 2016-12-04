@@ -1,7 +1,7 @@
-/*
+Ôªø/*
  * main.cpp
  *
- *  Created on: 24 ÌÓˇ·. 2016 „.
+ *  Created on: 24 –Ω–æ—è–± 2016.
  *      Author: Dexiz
  */
 
@@ -27,7 +27,7 @@ int main()
 	}
 	catch(std::runtime_error &err)
 	{
-		std::ofstream outputFile("log.txt", std::ios::out | std::ios::trunc); // ÀÓ„ Ù‡ÈÎ.
+		std::ofstream outputFile("log.txt", std::ios::out | std::ios::trunc); // –õ–æ–≥ —Ñ–∞–π–ª.
 		std::string errorText = err.what();
 		errorText.append("\n") ;
 

@@ -1,7 +1,7 @@
-/*
+п»ї/*
  * funcs.h
  *
- *  Created on: 24 нояб. 2016 г.
+ *  Created on: 24 РЅРѕСЏР±. 2016 Рі.
  *      Author: Dexiz
  */
 
@@ -38,9 +38,9 @@ class Task
 	std::mutex *spectrumMutexArray;
 
 	std::mutex vectorsAccess;
-	std::vector<unsigned int*> vectors; // Множество векторов А.
-	int vectorSize; // Размер вектора N.
-	int numberOfInts; // Для хранения вектора необходимо numberOfInts переменных типа int.
+	std::vector<unsigned int*> vectors; // РњРЅРѕР¶РµСЃС‚РІРѕ РІРµРєС‚РѕСЂРѕРІ Рђ.
+	int vectorSize; // Р Р°Р·РјРµСЂ РІРµРєС‚РѕСЂР° N.
+	int numberOfInts; // Р”Р»СЏ С…СЂР°РЅРµРЅРёСЏ РІРµРєС‚РѕСЂР° РЅРµРѕР±С…РѕРґРёРјРѕ numberOfInts РїРµСЂРµРјРµРЅРЅС‹С… С‚РёРїР° int.
 
 	//std::mutex filesAccess;
 	std::ifstream input;
